@@ -1,0 +1,33 @@
+##### ZOOKEEPER INSTALLATION STANDALONE MODE ####
+### Download from Apache.org Zookeeper
+
+#tar -zxf zookeeper-3.4.10.tar.gz
+#mv zookeeper-3.4.6 /usr/local/zookeeper
+#mkdir -p /var/lib/zookeeper
+#### rename zoo_sample.cfg zoo.cfg
+#cat > /usr/local/zookeeper/conf/zoo.cfg << EOF
+tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+EOF
+#export JAVA_HOME=/usr/java/jdk1.8
+
+##### validate that zookeeper is running correctly in standalone mode by connecting to the ##### client port and sending the four-letter command srvr
+
+#telnet localhost 2181
+
+srvr
+
+####### Correct result
+Zookeeper version: 3.4.5--1, built on 06/10/2013 17:26 GMT
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x2f4
+Mode: standalone
+Node count: 163
+Connection closed by foreign host.
+#########################
+
