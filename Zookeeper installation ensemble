@@ -1,0 +1,52 @@
+##### ZOOKEEPER INSTALLATION STANDALONE MODE ####
+### Download from Apache.org Zookeeper
+
+#tar -zxf zookeeper-3.4.10.tar.gz
+#mv zookeeper-3.4.6 /usr/local/zookeeper
+#mkdir -p /var/lib/zookeeper
+#### rename zoo_sample.cfg zoo.cfg
+#cat > /usr/local/zookeeper/conf/zoo.cfg << EOF
+tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+initLimit=20
+syncLimit=5
+server.1=zoo1.example.com:2888:3888
+server.2=zoo2.example.com:2888:3888
+server.3=zoo3.example.com:2888:3888
+EOF
+
+#### initLimit= is the amount of the time to allow followers to connect with a leader #####
+#### syncLimit=value limits how out-of-sync followers can be with the leader #####
+#### both values are a number of tickTime units, with makes the initLimit=20*2000 ms or 40 seconds.########
+#### The server are specified in the format server.X=hostname:peerPort:leaderPort with the following parameters:
+X= ID number of the server, this must be an integer, but it does not need to be zero-based or sequential.
+hostname=the hostname or IP address of the server
+peerPort=The TCP port over which servers in the ensemble communicate with each other
+leadPort=the TCP port over which leader election is performed
+
+In addition to the shared configuration file, each server must have a file in the dataDir directory with the name myid, this file must contain the ID number of the server, which must
+match the configuration file.
+#############################################################################################
+
+#export JAVA_HOME=/usr/java/jdk1.8
+
+##### validate that zookeeper is running correctly in standalone mode by connecting to the ##### client port and sending the four-letter command srvr
+
+#telnet localhost 2181
+
+srvr
+
+####### Correct result
+Zookeeper version: 3.4.5--1, built on 06/10/2013 17:26 GMT
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x2f4
+Mode: standalone
+Node count: 163
+Connection closed by foreign host.
+#########################
+
